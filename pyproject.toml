@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "apex-vdr-swarm"
+version = "1.0.0"
+description = "Autonomous M&A Deal Room & Private Equity Due Diligence Swarm (GraphRAG with NP-Hard Solvers)"
+readme = "README.md"
+authors = [
+  { name = "Ahmed Hassan", email = "aah@a2zsoc.com" }
+]
+license = { text = "MIT" }
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+keywords = ["due-diligence", "private-equity", "mergers-and-acquisitions", "graphrag", "vdr", "ebitda-haircut", "np-hard"]
+dependencies = []
+
+[project.scripts]
+vdr-swarm = "apex_vdr_swarm.cli:main"
+vdr-top = "apex_vdr_swarm.cli:main"
+
+[project.urls]
+Homepage = "https://a2zsoc.com"
+Repository = "https://github.com/AAH20/apex-vdr-swarm"
