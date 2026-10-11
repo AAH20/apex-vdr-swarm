@@ -1,7 +1,6 @@
 # `apex-vdr-swarm` (`a2z-atlas-vdr`)
 ### *The Autonomous M&A Deal Room & Private Equity Due Diligence Swarm*
 
-[![CI](https://github.com/AAH20/apex-vdr-swarm/actions/workflows/ci.yml/badge.svg)](https://github.com/AAH20/apex-vdr-swarm)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![Zero External Dependencies](https://img.shields.io/badge/dependencies-0%20(stdlib%20only)-success.svg)](https://github.com/AAH20/apex-vdr-swarm)
@@ -22,7 +21,7 @@ Today, this process remains fundamentally broken:
    - **Intellectual Property Contamination**: Undisclosed viral open-source licenses (AGPL-3.0/GPL-2.0) and missing founder IP assignment agreements that jeopardize software ownership.
    - **Cyber & Compliance Debt**: Unpatched critical CVEs, unhedged breach liability, and missing or qualified SOC 2 Type II audit opinions.
 
-`apex-vdr-swarm` (`a2z-atlas-vdr`) solves this by uniting the **`AAH20`** institutional portfolio—specifically **`project-atlas-due-diligence`**, **`investor-os`**, **`ma_vdr_diligence_os`**, **`tech-balance-sheet`**, **`ApexGraphSwarm`**, and **`graph-rag-np-hard-kernel`**—into an autonomous GraphRAG multi-agent diligence platform that audits a complete VDR and outputs a **Defensible Investment Committee Deal Memo with mathematically calculated EBITDA haircuts in under 60 seconds**.
+`apex-vdr-swarm` (`a2z-atlas-vdr`) is a self-contained GraphRAG multi-agent diligence engine: it ingests a VDR corpus and general-ledger data, runs specialist diligence agents, applies an EBITDA-haircut / valuation engine, and emits a Markdown Investment Committee deal memo. **In v1.0.0 the engine runs against a built-in synthetic "Project Atlas" benchmark (`demo_mode=True`); ingestion of real VDR/ledger inputs and integration with the `AAH20` sibling projects (`project-atlas-due-diligence`, `investor-os`, `ma_vdr_diligence_os`, `tech-balance-sheet`, `ApexGraphSwarm`, `graph-rag-np-hard-kernel`) is roadmap, not yet implemented.**
 
 ---
 
@@ -44,13 +43,12 @@ flowchart TB
         VDR_CORPUS --- CODE_SCAN
     end
 
-    subgraph L2_KERNEL ["LAYER 2: NP-HARD GRAPHRAG MATHEMATICAL CORE"]
+    subgraph L2_KERNEL ["LAYER 2: GRAPHRAG HEURISTIC SOLVER CORE"]
         direction TB
-        PCST_SOLVER["1. Prize-Collecting Steiner Tree (PCST)<br/>Primal-Dual Goemans-Williamson (2-Approx, 13.9µs)<br/>Extracts Minimal Evidence Subgraph Without Edge Explosion"]
-        PIVOT_MULTICUT["2. Entity Correlation Multicut (PIVOT)<br/>Ailon-Charikar-Newman (3-Approx, 35.3µs)<br/>Resolves Cross-Doc Entities (Subsidiaries, Shells, Customers)"]
-        CAUSAL_DP["3. Constrained Causal Path DP (6.8µs)<br/>Detects Revenue Front-Loading & Backdated Contracts"]
-        SUBMOD_KNAP["4. Submodular Context Summarizer (11.8µs)<br/>Density-Scaled Greedy (1 - 1/e Bound, 75% Token Pruning)"]
-        TEMPORAL_VF2["5. Temporal Subgraph Isomorphism (21.9µs)<br/>Detects Circular Round-Tripping, Wash Sales & Churn Cycles"]
+        PCST_SOLVER["1. Evidence Subgraph Extractor (PCST-style)<br/>Greedy Dijkstra shortest-path connection of high-prize targets<br/>Extracts Minimal Evidence Subgraph Without Edge Explosion"]
+        PIVOT_MULTICUT["2. Entity Correlation Clustering (PIVOT)<br/>Deterministic PIVOT greedy clustering<br/>Resolves Cross-Doc Entities (Subsidiaries, Shells, Customers)"]
+        CAUSAL_DP["3. Causal Chain Validator<br/>Pairwise temporal-order comparison (not dynamic programming)<br/>Detects Revenue Front-Loading & Backdated Contracts"]
+        SUBMOD_KNAP["4. Submodular Context Pruner<br/>Density-scaled greedy coverage selection"]
     end
 
     subgraph L3_SWARM ["LAYER 3: SPECIALIST DILIGENCE AGENT SWARM"]
@@ -66,7 +64,7 @@ flowchart TB
         direction TB
         EBITDA_HAIRCUT["EBITDA Valuation Haircut Calculator (ma_vdr_diligence_os)<br/>Adjusted EV = (Reported EBITDA - Drag) * Multiple - Liabilities"]
         ESCROW_MODEL["Reps & Warranties Escrow Sizing Model<br/>Calculates Indemnity Escrow Holdback for LOI Negotiation"]
-        DEAL_MEMO["Defensible IC Deal Memo Generator<br/>Executive PDF / Markdown / JSON Deal Sheet"]
+        DEAL_MEMO["IC Deal Memo Generator<br/>Markdown memo only (`generate_markdown_memo`); PDF/JSON export is roadmap"]
         EBITDA_HAIRCUT --> ESCROW_MODEL
         ESCROW_MODEL --> DEAL_MEMO
     end
@@ -74,7 +72,7 @@ flowchart TB
     subgraph L5_CONSOLE ["LAYER 5: INSTITUTIONAL CONSOLE & AUDIT RUNTIME"]
         direction TB
         VDR_TUI["Interactive Institutional Console (vdr-swarm)<br/>TUI Deal Room Monitor | Live Haircut Meter | Hotkey Navigation"]
-        HEADLESS_STREAM["Automated CI/CD Due Diligence Pipeline<br/>JSON-RPC / REST Audit Stream for PE Deal Rooms"]
+        HEADLESS_STREAM["Headless CLI Output<br/>`--headless --format text|json` to stdout (no JSON-RPC / REST server)"]
         VDR_TUI --- HEADLESS_STREAM
     end
 
@@ -92,7 +90,7 @@ flowchart TB
     classDef conStyle fill:#1c1917,stroke:#fbbf24,stroke-width:2px,color:#f8fafc;
 
     class VDR_CORPUS,LEDGER_INGEST,CODE_SCAN vdrStyle;
-    class PCST_SOLVER,PIVOT_MULTICUT,CAUSAL_DP,SUBMOD_KNAP,TEMPORAL_VF2 kernStyle;
+    class PCST_SOLVER,PIVOT_MULTICUT,CAUSAL_DP,SUBMOD_KNAP kernStyle;
     class FIN_AGENT,GPU_AGENT,IP_AGENT,CYBER_AGENT,CHAIR_AGENT swarmStyle;
     class EBITDA_HAIRCUT,ESCROW_MODEL,DEAL_MEMO valStyle;
     class VDR_TUI,HEADLESS_STREAM conStyle;
@@ -101,6 +99,8 @@ flowchart TB
 ---
 
 ## 3. Cross-Portfolio Integration Bus (`AAH20` Ecosystem)
+
+> **Roadmap — not implemented in v1.0.0.** The ingestion modules in this repo return hardcoded `demo_mode=True` benchmark constants rather than parsing real VDR, ledger, or sibling-project inputs. There is no cross-repo integration bus, no external solver kernel, and no cryptographic audit trail in the code. The diagram below describes the intended target architecture.
 
 ```mermaid
 flowchart LR
@@ -125,13 +125,13 @@ flowchart LR
     subgraph Graph_Solvers ["Graph Intelligence & Kernels"]
         direction TB
         APEX_GRAPH["ApexGraphSwarm<br/>Multi-Agent GraphRAG Orchestration"]
-        NP_KERNELS["graph-rag-np-hard-kernel<br/>10 Apex Solvers (158µs Total)"]
+        NP_KERNELS["graph-rag-np-hard-kernel<br/>External sibling project (roadmap)"]
     end
 
     subgraph Deliverables ["Institutional Outputs"]
         direction TB
         IC_MEMO["Investment Committee Deal Memo<br/>Adjusted EV, Haircuts & Escrow"]
-        AUDIT_TRAIL["RFC 8785 ActionLedger Proof<br/>Cryptographic Diligence Receipt"]
+        AUDIT_TRAIL["Deterministic CLI Output<br/>(no RFC 8785 / cryptographic receipt implemented)"]
     end
 
     ATLAS_VDR -->|"VDR Documents & Journal Lines"| VDR_HUB
@@ -248,24 +248,26 @@ vdr-swarm --headless --format text
 
 ## 7. Performance Benchmarks
 
-Ran on macOS Darwin / Apple Silicon / Linux x86_64:
+> **Illustrative sample output — not a committed or CI-verified benchmark result.** The figures below are sample values printed by `benchmarks/bench_solvers_latency.py` (run `make bench`); actual latencies vary by machine. The solver labels emitted by that script retain aspirational names; the descriptions in Section 2 reflect what the code actually does.
+
+Sample run on macOS Darwin / Apple Silicon / Linux x86_64:
 
 ```text
 =====================================================================================
- apex-vdr-swarm (`a2z-atlas-vdr`): Microsecond Latency Benchmark Suite
+ apex-vdr-swarm (`a2z-atlas-vdr`): Solver Latency Benchmark (sample output)
  Apex Growth Systems LLC | a2zsoc.com | NVIDIA Inception Program Partner
 =====================================================================================
 
-[1] Prize-Collecting Steiner Tree (PCST):  12.59 µs / query (Primal-Dual GW 2-Approx)
-[2] PIVOT Entity Resolution Multicut:     1.94 µs / resolution (3-Approx Bound)
-[3] Constrained Causal Path DP:           1.24 µs / chain (Pareto Label-Setting)
-[4] Submodular Context Pruner:            3.26 µs / optimization (1 - 1/e Bound)
+[1] Evidence Subgraph Extractor (PCST-style): 12.59 µs / query (greedy shortest-path)
+[2] PIVOT Entity Resolution Multicut:          1.94 µs / resolution (greedy PIVOT clustering)
+[3] Causal Chain Validator:                    1.24 µs / chain (pairwise temporal comparison)
+[4] Submodular Context Pruner:                 3.26 µs / optimization (density-scaled greedy)
 
-[5] Full Deal Room Audit & Haircut SLA:  0.123 ms / complete deal (66 docs + 107k lines)
+[5] Full Deal Room Audit & Haircut:           0.123 ms / complete deal (synthetic 66-doc benchmark)
 
 =====================================================================================
  BENCHMARK SLA VERIFICATION:
- [✓] Sub-50µs Graph Solver Kernel SLA: PASSED
+ [✓] Sub-50µs Solver SLA: PASSED
  [✓] Sub-100ms Full Deal Valuation SLA: PASSED
 =====================================================================================
 ```

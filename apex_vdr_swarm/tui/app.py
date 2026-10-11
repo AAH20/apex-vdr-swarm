@@ -99,7 +99,7 @@ class VdrSwarmTuiApp:
             f" apex-vdr-swarm v1.0.0 — Autonomous M&A Diligence Engine | Apex Growth Systems LLC (a2zsoc.com) ",
             "-" * width,
             f" Deal Target: {self.deal_name} | VDR Docs: {len(self.documents)} Processed | Ledger Lines: {self.ledger_summary.total_ledger_rows:,} Reconciled",
-            f" GraphRAG Core: 5/5 NP-Hard Solvers Active | Steiner Tree: 13.9µs | PIVOT Multicut: 35.3µs | Causal DP: 6.8µs",
+            f" GraphRAG Core: 4 solver modules available (evidence subgraph, PIVOT, causal, submodular)",
             "=" * width,
         ]
 
